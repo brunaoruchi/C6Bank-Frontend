@@ -41,7 +41,7 @@ function Cadastro() {
             setMessage('Cadastro realizado com sucesso!')
             setError('');
         } catch (err) {
-            setError('Cadastro inválido!');
+            setError('Cadastro inválido! E-mail já cadastrado ou Erro no servidor');
             return
         }
     }

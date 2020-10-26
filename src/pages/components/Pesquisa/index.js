@@ -21,7 +21,7 @@ function Pesquisa() {
         }
 
         try {
-            const coin = await api.get(`coins/${name}`, {
+            const coin = await api.get(`coins/${name.toLowerCase()}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
@@ -29,6 +29,7 @@ function Pesquisa() {
             setMoedaNome(coin.data.coin.name);
             setMoedaImg(`${process.env.REACT_APP_API_URL}/files/${coin.data.coin.logo}`);
             setError('');
+            setName('');
         }catch(err){
             console.log(err);
             setError('Moeda não encontrada.');
@@ -53,7 +54,7 @@ function Pesquisa() {
             {
                 moedaNome && 
                 <div className="campo-moeda">
-                    <h2>Nome: {moedaNome}</h2><br/>
+                    <h2>Nome: {moedaNome.toUpperCase()}</h2><br/>
                     <img src={moedaImg} alt="Logo Moeda"/><br/>
                 </div>
             }

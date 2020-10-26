@@ -11,7 +11,7 @@ function CriarMoeda() {
     const formData = new FormData()
 
     formData.append("logo", data.logo[0])
-    formData.append("name", data.name)
+    formData.append("name", data.name.toLowerCase())
 
     const res = await fetch(`${process.env.REACT_APP_API_URL}/coins/admin`, {
       method: "POST",
@@ -35,7 +35,7 @@ function CriarMoeda() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>Cadastrar moeda: </label>
         <input ref={register} type="file" name="logo" />
-        <input ref={register} type="text" name="name" />
+        <input ref={register} minlength="4" type="text" name="name" />
         <button>Criar</button>
       </form>
       {error && <span className="erro-form">{error}</span>}
