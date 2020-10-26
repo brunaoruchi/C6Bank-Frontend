@@ -13,7 +13,7 @@ function CriarMoeda() {
     formData.append("logo", data.logo[0])
     formData.append("name", data.name)
 
-    const res = await fetch("${process.env.REACT_APP_API_URL}/coins/admin", {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/coins/admin`, {
       method: "POST",
       body: formData,
       headers: {
