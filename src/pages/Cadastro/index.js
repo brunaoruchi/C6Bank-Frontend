@@ -20,6 +20,15 @@ function Cadastro() {
             setError('Digite sua senha.');
             return
         }
+        if(!name){
+            setError('Digite seu nome.');
+            return
+        }
+
+        if(name.length <= 3){
+            setError('O nome tem que ser mais de 3 caracteres.');
+            return;
+        }
         if (email.length <= 3) {
             setError('O email tem que ser mais de 3 caracteres.');
             return;
