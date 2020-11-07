@@ -12,8 +12,13 @@ function Cadastro() {
 
     async function onCadastroSubmit(e) {
         e.preventDefault();
+        const regex_validation = /^.+@.+..+$/;
         if (!email) {
             setError('Digite seu email.');
+            return
+        }
+        if(!regex_validation.test(email)){
+            setError('Digite um email válido.');
             return
         }
         if (!password) {
