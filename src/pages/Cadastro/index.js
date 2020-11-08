@@ -12,6 +12,7 @@ function Cadastro() {
     const [errorName, setErrorName] = useState('');
     const [errorEmail, setErrorEmail] = useState('');
     const [errorPassword, setErrorPassword] = useState('');
+    const [errorRole, setErrorRole] = useState('');
 
     async function onCadastroSubmit(e) {
         e.preventDefault();
@@ -21,6 +22,7 @@ function Cadastro() {
         setErrorName('');
         setErrorEmail('');
         setErrorPassword('');
+        setErrorRole('');
         setMessage('');
 
         if(!email){
@@ -52,8 +54,14 @@ function Cadastro() {
             setErrorEmail('O email tem que ser mais de 3 caracteres.');
             aux = false;
         }
+
         if(password.length <= 3){
             setErrorPassword('A senha tem que ser mais de 3 caracteres.');
+            aux = false;
+        }
+
+        if(role === ''){
+            setErrorRole('Selecione um role.');
             aux = false;
         }
 
@@ -77,6 +85,7 @@ function Cadastro() {
             setErrorName('');
             setErrorEmail('');
             setErrorPassword('');
+            setErrorRole('');
         } catch (err) {
             setError('Cadastro inválido! E-mail já cadastrado ou Erro no servidor');
             return
@@ -118,6 +127,7 @@ function Cadastro() {
                     <option value="admin">Administrador</option>
                     <option value="user">Usuário</option>
                 </select>
+                {errorRole&&<span className="erro-form">{errorRole}</span>}
                 <button type="submit">Criar</button>
             </form>
             {error && <span className="erro-form">{error}</span>}
