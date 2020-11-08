@@ -13,24 +13,35 @@ export default function Lista() {
     const [flag, setFlag] = useState('');
     const [role, setRole] = useState('');
     const [message, setMessage] = useState('');
+    const [errorEmail, setErrorEmail] = useState('');
+    const [errorPassword, setErrorPassword] = useState('');
 
     async function onLoginSubmit(e) {
         e.preventDefault();
-        if (!email) {
-            setError('Digite seu email.');
-            return;
+        var aux = true;
+        setError('');
+        setErrorEmail('');
+        setErrorPassword('');
+        setMessage('');
+        
+        if(!email){
+            setErrorEmail('Digite seu email.');
+            aux = false;
         }
-        if (!password) {
-            setError('Digite sua senha.');
-            return;
+        
+        if(!password){
+            setErrorPassword('Digite sua senha.');
+            aux = false;
         }
-        if (email.length <= 3) {
-            setError('O email tem que ser mais de 3 caracteres.');
-            return;
+
+        if(email.length <= 3){
+            setErrorEmail('O email tem que ser mais de 3 caracteres.');
+            aux = false;
         }
-        if (password.length <= 3) {
-            setError('A senha tem que ser mais de 3 caracteres.');
-            return;
+
+        if(password.length <= 3){
+            setErrorPassword('A senha tem que ser mais de 3 caracteres.');
+            aux = false;
         }
 
         const info = {
@@ -38,12 +49,19 @@ export default function Lista() {
             password
         };
 
+        if(!aux){
+            
+            return;
+        }
+
         try {
             const res = await api.post('auth/authenticate', info);
 
             localStorage.setItem("@C6Bank:token", res.data.token);
             localStorage.setItem("@C6Bank:role", res.data.user.role);
             setError('');
+            setErrorEmail('');
+            setErrorPassword('');
             setMessage('Login realizado com sucesso!')
             setFlag(localStorage.getItem(`@C6Bank:token`));
             if (localStorage.getItem(`@C6Bank:role`) === 'admin') {
@@ -90,6 +108,7 @@ export default function Lista() {
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                 />
+                {errorEmail&&<span className="erro-form">{errorEmail}</span>}
                 <label htmlFor="password">Senha: </label>
                 <input
                     id="password"
@@ -97,6 +116,7 @@ export default function Lista() {
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                 />
+                {errorPassword&&<span className="erro-form">{errorPassword}</span>}
                 <button type="submit">Entrar</button>
 
             </form>

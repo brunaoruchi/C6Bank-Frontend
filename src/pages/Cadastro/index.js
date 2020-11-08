@@ -7,40 +7,54 @@ function Cadastro() {
     const [email, setEmail] = useState('');
     const [role, setRole] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
     const [message, setMessage] = useState('');
+    const [error, setError] = useState('');
+    const [errorName, setErrorName] = useState('');
+    const [errorEmail, setErrorEmail] = useState('');
+    const [errorPassword, setErrorPassword] = useState('');
 
     async function onCadastroSubmit(e) {
         e.preventDefault();
         const regex_validation = /^.+@.+..+$/;
-        if (!email) {
-            setError('Digite seu email.');
-            return
+        var aux = true;
+        setError('');
+        setErrorName('');
+        setErrorEmail('');
+        setErrorPassword('');
+        setMessage('');
+
+        if(!email){
+            setErrorEmail('Digite seu email.');
+            aux = false;
         }
+
         if(!regex_validation.test(email)){
-            setError('Digite um email válido.');
-            return
+            setErrorEmail('Digite um email válido.');
+            aux = false;
         }
-        if (!password) {
-            setError('Digite sua senha.');
-            return
+        
+        if(!password){
+            setErrorPassword('Digite sua senha.');
+            aux = false;
         }
+
         if(!name){
-            setError('Digite seu nome.');
-            return
+            setErrorName('Digite seu nome.');
+            aux = false;
         }
 
         if(name.length <= 3){
-            setError('O nome tem que ser mais de 3 caracteres.');
-            return;
+            setErrorName('O nome tem que ser mais de 3 caracteres.');
+            aux = false;
         }
-        if (email.length <= 3) {
-            setError('O email tem que ser mais de 3 caracteres.');
-            return;
+
+        if(email.length <= 3){
+            setErrorEmail('O email tem que ser mais de 3 caracteres.');
+            aux = false;
         }
-        if (password.length <= 3) {
-            setError('A senha tem que ser mais de 3 caracteres.');
-            return;
+        if(password.length <= 3){
+            setErrorPassword('A senha tem que ser mais de 3 caracteres.');
+            aux = false;
         }
 
         const info = {
@@ -50,10 +64,19 @@ function Cadastro() {
             role
         };
 
+        if(!aux){
+            
+            return;
+        }
+
         try {
             await api.post('auth/register', info);
             setMessage('Cadastro realizado com sucesso!')
             setError('');
+            setError('');
+            setErrorName('');
+            setErrorEmail('');
+            setErrorPassword('');
         } catch (err) {
             setError('Cadastro inválido! E-mail já cadastrado ou Erro no servidor');
             return
@@ -72,6 +95,7 @@ function Cadastro() {
                     value={name}
                     onChange={e => setName(e.target.value)}
                 />
+                {errorName&&<span className="erro-form">{errorName}</span>}
                 <label htmlFor="email">E-mail: </label>
                 <input
                     id="email"
@@ -79,6 +103,7 @@ function Cadastro() {
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                 />
+                {errorEmail&&<span className="erro-form">{errorEmail}</span>}
                 <label htmlFor="password">Senha: </label>
                 <input
                     id="password"
@@ -86,6 +111,7 @@ function Cadastro() {
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                 />
+                {errorPassword&&<span className="erro-form">{errorPassword}</span>}
                 <label htmlFor="role">Role: </label>
                 <select value={role} onChange={e => setRole(e.target.value)}>
                     <option disabled defaultValue> </option>
