@@ -49,7 +49,7 @@ A aplicação web foi desenvolvida durante a disciplina - Programação Web, é 
 
 ## Como baixar o projeto 
 
-- Baixa e iniciar projeto [C6Bank-Backend](https://github.com/brunoOGA/C6Bank-Backend).
+- Baixar e iniciar projeto [C6Bank-Backend](https://github.com/brunoOGA/C6Bank-Backend).
 
 ```bash
   
