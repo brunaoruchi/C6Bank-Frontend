@@ -10,7 +10,7 @@ A aplicação web foi desenvolvida durante a disciplina - Programação Web, é 
 
 ## Requisitos da atividade
 
-###PROJETO 1 - HTML e CSS
+### PROJETO 1 - HTML e CSS
 
 - Atendimento as diretrizes de desenvolvimento web apresentadas durante as aulas.
 - Emprego de tecnicas de desenvolvimento de layouts padronizados e consistentes utilizando HTML e CSS.
